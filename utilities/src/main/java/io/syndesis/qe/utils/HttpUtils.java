@@ -57,6 +57,21 @@ public final class HttpUtils {
         return null;
     }
 
+    public static Response doGetRequest(String url, Headers headers) {
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .get();
+        if (headers != null) {
+            requestBuilder.headers(headers);
+        }
+        try {
+            return getClient().newCall(requestBuilder.build()).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Response doDeleteRequest(String url) {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url)
