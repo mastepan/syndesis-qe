@@ -74,6 +74,9 @@ public final class TestUtils {
     public static <T> boolean waitForEvent(Predicate<T> predicate, Supplier<T> supplier, TimeUnit unit, long timeout, TimeUnit sleepUnit, long sleepTime) {
         final long start = System.currentTimeMillis();
         long elapsed = 0;
+
+        log.info("WAITING FOR EVENT");
+
         while (!predicate.test(supplier.get()) && unit.toMillis(timeout) >= elapsed) {
             try {
                 sleepUnit.sleep(sleepTime);
@@ -81,10 +84,12 @@ public final class TestUtils {
                 log.debug("Interupted while sleeping", e);
             } finally {
                 elapsed = System.currentTimeMillis() - start;
+                log.info("Waiting SECONDS: " + elapsed);
                 System.gc();
             }
         }
 
+        log.info("Waiting FINISHED");
         return predicate.test(supplier.get());
     }
 

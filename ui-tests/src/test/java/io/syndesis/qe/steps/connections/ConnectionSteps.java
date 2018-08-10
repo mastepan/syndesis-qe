@@ -121,6 +121,9 @@ public class ConnectionSteps {
             String connectionName = dataRow.get(2);
             String connectionDescription = dataRow.get(3);
 
+            log.info(" ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| ");
+            log.info(dataRow.get(0) + " | " + dataRow.get(1) + " | " + dataRow.get(2) + " | " + dataRow.get(3) + " | ");
+
             cs.navigateTo("Connections");
             cs.validatePage("Connections");
 

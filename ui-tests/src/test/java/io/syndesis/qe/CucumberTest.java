@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "classpath:features",
-        tags = "@DB-to-TODO-custom-api-connector-integration",
+        tags = "@servicenow-retrieve-data",
         format = {"pretty", "html:target/cucumber/cucumber-html", "junit:target/cucumber/cucumber-junit.xml", "json:target/cucumber/cucumber-report.json"}
 )
 public class CucumberTest extends TestSuiteParent {
