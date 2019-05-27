@@ -200,14 +200,47 @@ public class DataMapper extends SyndesisPageObject {
         List<String> path = Arrays.asList(mappingName.trim().split("\\."));
         final String parent = path.get(0);
 
-        path.forEach(s -> {
-            SelenideElement detailElement = containerElement.find(By.id(s)).shouldBe(visible);
+//        path.forEach(s -> {
+        boolean previousHadNullId = false;
+
+        for( int i = 0; i < path.size(); i++ ) {
+            String s = path.get(i);
+            SelenideElement detailElement = containerElement.find(By.id(s));
+
+            if (s == null || s.equals("")) {
+                log.info("WWWWW ID is null");
+                previousHadNullId = true;
+                continue;
+            } else {
+                if (previousHadNullId) {
+                    log.info("WWWWW previous ID was null");
+                    log.info("WWWWW current  ID is  " + s);
+
+
+                    if (!detailElement.is(visible)) {
+                        log.info("WWWWW clicking an ancestor");
+//                    containerElement.find(By.xpath(".//div[@class='DocumentFieldDetailComponent'")).shouldBe(visible).click();
+                    containerElement.find(By.cssSelector("div[class=\"DocumentFieldDetailComponent\"")).shouldBe(visible).click();
+                    } else {
+                        //go on
+                    }
+                }
+                detailElement.shouldBe(visible);
+            }
+
             if (detailElement.find(Element.CHILDREN).exists()) {
                 // if there're childrenFields display element is expanded already, click otherwise
             } else {
                 SelenideElement el;
                 if (!s.equals(parent)) {
-                    el = containerElement.find(By.id(parent)).find(By.id(s)).$(Element.LABEL).shouldBe(visible);
+                    By parentElementSelector = null;
+
+                    if(previousHadNullId) {
+                        parentElementSelector = By.cssSelector("div[class=\"DocumentFieldDetailComponent\"");
+                    } else {
+                        parentElementSelector = By.id(parent);
+                    }
+                    el = containerElement.find(parentElementSelector).find(By.id(s)).$(Element.LABEL).shouldBe(visible);
                 } else {
                     el = detailElement.$(Element.LABEL).shouldBe(visible);
                 }
@@ -220,10 +253,11 @@ public class DataMapper extends SyndesisPageObject {
                         .click()
                         .keyUp(Keys.META)
                         .perform();
-
             }
 
-        });
+            previousHadNullId = false;
+        }
+//        });
     }
 
     /**
