@@ -7,6 +7,7 @@ Feature: Integration - FHIR
   Background: Clean application state
     Given clean application state
     Given log into the Syndesis
+<<<<<<< HEAD
     And created connections
       | FHIR | FHIR | | Description |
 
@@ -503,3 +504,47 @@ Feature: Integration - FHIR
 
     When sleep for "10000" ms
     Then validate that logs of integration "FHIR_delete" contains string "<TODO: COMPLETE THIS CHECK>"
+=======
+
+#
+#  1. select - update
+#
+  @fhir-create
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-delete
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-patch
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-read
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-search
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-transaction
+  Scenario: Read and update operations
+
+    #
+#  1. select - update
+#
+  @fhir-update
+  Scenario: Read and update operations
+>>>>>>> 6513bf90acc3c84147b62cfbed33cc9e14566680
